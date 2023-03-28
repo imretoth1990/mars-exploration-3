@@ -1,4 +1,4 @@
-package com.codecool.marsexploration.controller;
+package com.codecool.marsexploration.data.datacontroller;
 
 import com.codecool.marsexploration.data.Context;
 import com.codecool.marsexploration.data.SimulationInput;

@@ -1,6 +1,6 @@
 package com.codecool.marsexploration;
 
-import com.codecool.marsexploration.controller.DataPresenter;
+import com.codecool.marsexploration.data.datacontroller.DataPresenter;
 import com.codecool.marsexploration.view.Display;
 import com.codecool.marsexploration.controller.ExplorationSimulator;
 import com.codecool.marsexploration.data.Context;

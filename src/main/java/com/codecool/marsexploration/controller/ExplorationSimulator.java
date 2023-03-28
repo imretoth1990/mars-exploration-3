@@ -8,6 +8,7 @@ import com.codecool.marsexploration.data.RoutineManager;
 import com.codecool.marsexploration.data.Rover;
 import com.codecool.marsexploration.data.collectors.ObjectCollector;
 import com.codecool.marsexploration.data.collectors.PositionCollector;
+import com.codecool.marsexploration.data.datacontroller.DataPresenter;
 import com.codecool.marsexploration.view.Display;
 
 import java.util.ArrayList;
