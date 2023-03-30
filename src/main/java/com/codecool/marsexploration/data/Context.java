@@ -9,8 +9,12 @@ public class Context {
     private List<List<String>> marsMap;
     private Coordinate landing;
     private Rover rover;
-    private Outcome explorationOutcome; // return Optional
+    private Optional<Outcome> explorationOutcome;
     private String logFilePath;
+
+    public Context(Optional<Outcome> explorationOutcome) {
+        this.explorationOutcome = explorationOutcome;
+    }
 
     public int getStepNumber() {
         return stepNumber;
@@ -53,14 +57,10 @@ public class Context {
     }
 
     public Optional<Outcome> getExplorationOutcome() {
-        if (explorationOutcome == null) {
-            return Optional.empty();
-        } else {
-            return Optional.of( explorationOutcome );
-        }
+        return explorationOutcome;
     }
 
-    public void setExplorationOutcome(Outcome explorationOutcome) {
+    public void setExplorationOutcome(Optional<Outcome> explorationOutcome) {
         this.explorationOutcome = explorationOutcome;
     }
 

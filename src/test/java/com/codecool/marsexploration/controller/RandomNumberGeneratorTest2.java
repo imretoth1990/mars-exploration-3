@@ -1,7 +1,6 @@
 package com.codecool.marsexploration.controller;
 
 import com.codecool.marsexploration.controller.routine.RandomRoutine;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -9,12 +8,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class RandomNumberGeneratorTest {
+class RandomNumberGeneratorTest2 {
 
     RandomRoutine randomRoutine = new RandomRoutine();
 
     @Test
-    @DisplayName( "Test Nr.1" )
     void testIfGeneratedNumberBetween0AndListSize() {
         int listSize = 5;
         List<Integer> testList = new ArrayList<>();

@@ -1,9 +1,9 @@
 package com.codecool.marsexploration.controller;
 
+import com.codecool.marsexploration.controller.jdbc.OutcomeTableManager;
 import com.codecool.marsexploration.controller.phase.Phase;
 import com.codecool.marsexploration.controller.routine.Routine;
 import com.codecool.marsexploration.data.Context;
-import com.codecool.marsexploration.data.Outcome;
 import com.codecool.marsexploration.data.RoutineManager;
 import com.codecool.marsexploration.data.Rover;
 import com.codecool.marsexploration.data.collectors.ObjectCollector;
@@ -12,17 +12,18 @@ import com.codecool.marsexploration.data.datacontroller.DataPresenter;
 import com.codecool.marsexploration.view.Display;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class ExplorationSimulator {
     DataPresenter presenter;
     Context context;
     Display display;
+    OutcomeTableManager outcomeTableManager;
 
-    public ExplorationSimulator(DataPresenter presenter, Display display) {
+    public ExplorationSimulator(DataPresenter presenter, Display display, OutcomeTableManager outcomeTableManager) {
         this.presenter = presenter;
         this.context = presenter.presentContext();
         this.display = display;
+        this.outcomeTableManager = outcomeTableManager;
     }
 
     public void simulate() {
@@ -31,10 +32,8 @@ public class ExplorationSimulator {
         context.getRover().setRoutine( RoutineManager.RANDOM_ROUTINE.getRoutine() );
         runProcess( RoutineManager.RETURNING_ROUTINE.getRoutine() );
         display.displayProcess();
-    }
-
-    private void runStepsUntilOutcome() {
-        makeStep();
+        //jdbcManager.createTable();
+        outcomeTableManager.insertDataIntoTable();
     }
 
     private void makeStep() {
@@ -44,12 +43,11 @@ public class ExplorationSimulator {
     }
 
     private void runProcess(Routine returnRoutine) {
-        Optional<Outcome> findOutcome = context.getExplorationOutcome();
-        while (findOutcome.isEmpty()) {
+        while (context.getExplorationOutcome().isEmpty()) {
             if (context.getStepNumber() == context.getTimeout()) {
                 context.getRover().setRoutine( returnRoutine );
             }
-            runStepsUntilOutcome();
+            makeStep();
         }
     }
 }

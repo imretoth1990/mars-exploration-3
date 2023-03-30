@@ -29,11 +29,11 @@ public class Display {
     }
 
     private void writeOutExplorationOutcome() {
-        Optional<Outcome> findOutcome = context.getExplorationOutcome();
-        findOutcome.ifPresent( outcome -> {
+        context.getExplorationOutcome().ifPresentOrElse( outcome -> {
             System.out.println();
             System.out.println( "ExplorationOutcome: " + outcome );
-        } );
-
+        }, () -> {
+            System.out.println( "no outcome" );
+        });
     }
 }

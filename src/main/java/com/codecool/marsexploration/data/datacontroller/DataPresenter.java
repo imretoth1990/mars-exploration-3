@@ -21,6 +21,10 @@ public class DataPresenter {
         this.input = input;
     }
 
+    public SimulationInput getInput() {
+        return input;
+    }
+
     public void initPhaseManager() {
         phaseManager.phases().add(new Movement());
         phaseManager.phases().add(new Scan());
