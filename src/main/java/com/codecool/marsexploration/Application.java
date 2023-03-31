@@ -1,8 +1,7 @@
 package com.codecool.marsexploration;
 
 import com.codecool.marsexploration.controller.ExplorationSimulator;
-import com.codecool.marsexploration.controller.jdbc.JDBCConnect;
-import com.codecool.marsexploration.controller.jdbc.OutcomeTableManager;
+import com.codecool.marsexploration.controller.jdbc.*;
 import com.codecool.marsexploration.data.Context;
 import com.codecool.marsexploration.data.Coordinate;
 import com.codecool.marsexploration.data.SimulationInput;
@@ -12,15 +11,16 @@ import com.codecool.marsexploration.view.Display;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class Application {
     public static void main(String[] args) {
         SimulationInput input = new SimulationInput(
-                "src/main/resources/exploration-1.map",
+                "src/main/resources/exploration-2.map",
                 new Coordinate( 12, 12 ),
-                500,
-                "src/main/resources/exploration-1.log" );
+                300,
+                "src/main/resources/exploration-2.log" );
 
         PhaseManager phaseManager = new PhaseManager( new ArrayList<>() );
 
@@ -35,9 +35,12 @@ public class Application {
 
         JDBCConnect connectionToDB = new JDBCConnect( "jdbc:postgresql://localhost:5432/mars_exploration" );
         Connection connection = connectionToDB.connect();
-        OutcomeTableManager OutcomeTableManager = new OutcomeTableManager( connection, presenter );
+        JDBCManager outcome = new OutcomeTableManager( connection, presenter );
+        JDBCManager map = new MapTableManager( connection, presenter );
+        JDBCManager resource = new ResourcesTableManager( connection, presenter );
+        List<JDBCManager> jdbcManagerList = List.of(outcome, map, resource);
 
-        ExplorationSimulator simulator = new ExplorationSimulator( presenter, display, OutcomeTableManager );
+        ExplorationSimulator simulator = new ExplorationSimulator( presenter, display, jdbcManagerList);
         simulator.simulate();
     }
 }

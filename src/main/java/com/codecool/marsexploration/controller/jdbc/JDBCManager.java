@@ -4,3 +4,9 @@ public interface JDBCManager {
     void createTable();
     void insertDataIntoTable();
 }
+
+
+
+
+
+

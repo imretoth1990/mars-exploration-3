@@ -1,5 +1,6 @@
 package com.codecool.marsexploration.controller;
 
+import com.codecool.marsexploration.controller.jdbc.JDBCManager;
 import com.codecool.marsexploration.controller.jdbc.OutcomeTableManager;
 import com.codecool.marsexploration.controller.phase.Phase;
 import com.codecool.marsexploration.controller.routine.Routine;
@@ -12,18 +13,19 @@ import com.codecool.marsexploration.data.datacontroller.DataPresenter;
 import com.codecool.marsexploration.view.Display;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ExplorationSimulator {
     DataPresenter presenter;
     Context context;
     Display display;
-    OutcomeTableManager outcomeTableManager;
+    List<JDBCManager> jdbcManagerList;
 
-    public ExplorationSimulator(DataPresenter presenter, Display display, OutcomeTableManager outcomeTableManager) {
+    public ExplorationSimulator(DataPresenter presenter, Display display, List<JDBCManager> jdbcManagerList) {
         this.presenter = presenter;
         this.context = presenter.presentContext();
         this.display = display;
-        this.outcomeTableManager = outcomeTableManager;
+        this.jdbcManagerList =jdbcManagerList;
     }
 
     public void simulate() {
@@ -32,8 +34,11 @@ public class ExplorationSimulator {
         context.getRover().setRoutine( RoutineManager.RANDOM_ROUTINE.getRoutine() );
         runProcess( RoutineManager.RETURNING_ROUTINE.getRoutine() );
         display.displayProcess();
-        //jdbcManager.createTable();
-        outcomeTableManager.insertDataIntoTable();
+
+        //jdbcManagerList.forEach( jdbcManager -> jdbcManager.createTable() );
+        jdbcManagerList.forEach( jdbcManager -> jdbcManager.insertDataIntoTable() );
+
+        display.displayProcess();
     }
 
     private void makeStep() {

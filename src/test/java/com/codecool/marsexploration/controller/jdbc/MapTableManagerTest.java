@@ -18,7 +18,7 @@ class MapTableManagerTest {
     DataPresenter dataPresenter = mock( DataPresenter.class );
     Context context = mock( Context.class );
 
-    MapTableManager mapTableManager = new MapTableManager( connection, dataPresenter, context );
+    MapTableManager mapTableManager = new MapTableManager( connection, dataPresenter );
 
     @ParameterizedTest
     @MethodSource("provideStringsForPathTest1")
